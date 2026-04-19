@@ -26,6 +26,8 @@ theme:
     # - navigation.tabs.sticky
     - navigation.sections
     - navigation.expand
+  icon:
+    repo: fontawesome/brands/github
 extra_css:
   - css/custom.css
 
