@@ -6,12 +6,11 @@
 
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
-## Commands
+## 实则现在变成了和哒哒嗒嗒小姐的momento
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+* 好喜欢你啊
+* 好喜欢你啊
+* 好喜欢你啊
 
 ## Project layout
 
@@ -20,4 +19,3 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
         index.md  # The documentation homepage.
         ...       # Other markdown pages, images and other files.
 
-## 修改测试

@@ -34,5 +34,13 @@ extra_css:
 nav:
   - Home: index.md
   - About: about.md
-  - Blog:
-    - Momento: ourstory.md
+  - Notes: notes.md
+  - Momento:
+    - 2026.4.4 : 2026-04-04-scarymovies.md
+    - 2026.3.28 油菜花...: 2026-03-28-youcaihua.md
+    - 2026.1.23 鼓浪屿...: 2026-01-23-sunset&afterglow.md
+    - 2026.1.20 西湖边...: 2026-01-20-westlake.md
+    - 2026.1.15 : 2026-01-15-wanna kiss you.md
+    - 2025.12.31: 2025-12-31-our story begins.md
+    
+    
