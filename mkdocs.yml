@@ -1,0 +1,34 @@
+site_name: vero的小窝
+theme:
+  name: 'material'
+  language: zh
+  palette:
+    # 手动日间模式
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue grey
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: 日间模式
+    # 手动夜间模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: 夜间模式
+  features:
+    - navigation.tabs
+    # - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+extra_css:
+  - css/custom.css
+
+nav:
+  - Home: index.md
+  - About: about.md
+  - Blog:
+    - Momento: ourstory.md
