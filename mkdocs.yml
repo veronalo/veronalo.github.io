@@ -1,4 +1,6 @@
 site_name: vero的小窝
+site_url: https://veronalo.github.io
+repo_url: https://github.com/veronalo/veronalo.github.io
 theme:
   name: 'material'
   language: zh
