@@ -2,20 +2,17 @@
 ---
 # Welcome to vero的小窝
 
-施工中...
+<img src="/assets/img/vero.jpg"  width="600">
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+紧张施工中...
 
-## 实则现在变成了和哒哒嗒嗒小姐的momento
 
-* 好喜欢你啊
-* 好喜欢你啊
-* 好喜欢你啊
+<del>实则现在只写了和哒哒嗒嗒小姐的momento</del>
 
-## Project layout
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+## 主要内容
+- 个人学习笔记整理和经验总结
+- 一些杂七杂八的碎碎念
+
+
 

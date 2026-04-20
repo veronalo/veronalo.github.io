@@ -4,6 +4,7 @@ repo_url: https://github.com/veronalo/veronalo.github.io
 theme:
   name: 'material'
   language: zh
+  logo: assets/logo2.png
   palette:
     # 手动日间模式
     - media: "(prefers-color-scheme: light)"
@@ -26,6 +27,9 @@ theme:
     # - navigation.tabs.sticky
     - navigation.sections
     - navigation.expand
+    - navigation.indexes
+    - navigation.path
+    - navigation.footer
   icon:
     repo: fontawesome/brands/github
 extra_css:
@@ -33,14 +37,31 @@ extra_css:
 
 nav:
   - Home: index.md
+  - Notes:
+    - Home: notes/notes.md
+    - 电子电路基础: notes/ec.md
+  - Momento: 
+    - Momento: momento/index.md
+    - 2026.4.11写真: momento/2026-04-11-photo.md    
+    - 2026.4.4 : momento/2026-04-04-scarymovies.md
+    - 2026.3.28 油菜花...: momento/2026-03-28-youcaihua.md
+    - 2026.1.23 鼓浪屿...: momento/2026-01-23-sunset&afterglow.md
+    - 2026.1.20 西湖边...: momento/2026-01-20-westlake.md
+    - 2026.1.15 : momento/2026-01-15-wanna kiss you.md
+    - 2025.12.31: momento/2025-12-31-our story begins.md
   - About: about.md
-  - Notes: notes.md
-  - Momento:
-    - 2026.4.4 : 2026-04-04-scarymovies.md
-    - 2026.3.28 油菜花...: 2026-03-28-youcaihua.md
-    - 2026.1.23 鼓浪屿...: 2026-01-23-sunset&afterglow.md
-    - 2026.1.20 西湖边...: 2026-01-20-westlake.md
-    - 2026.1.15 : 2026-01-15-wanna kiss you.md
-    - 2025.12.31: 2025-12-31-our story begins.md
     
-    
+
+plugins:
+  - search
+  - encryptcontent: 
+      summary: '请输入密码以访问此内容'               # 加密内容的摘要信息[reference:1]
+      placeholder: 'hint：你身份证上的生日（8位）'                   # 密码输入框内的占位文本[reference:2]
+      decryption_failure_message: '密码错误，请再试试' # 密码输入错误时的提示[reference:3]
+      title_prefix: '🔒 [LOCK]'                     # 页面标题的前缀[reference:4]
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
