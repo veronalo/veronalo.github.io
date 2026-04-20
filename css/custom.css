@@ -12,3 +12,9 @@
                    BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 
                    sans-serif;
 }
+
+.md-typeset blockquote {
+  border-left-color: #688aa7 !important; 
+  /* border-left-width: 8px; */      /* 可选：修改边框宽度 */
+  color: #b1baca;              
+}
