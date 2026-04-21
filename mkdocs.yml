@@ -5,6 +5,7 @@ theme:
   name: 'material'
   language: zh
   logo: assets/logo2.png
+  favicon: assets/logo2.png
   palette:
     # 手动日间模式
     - media: "(prefers-color-scheme: light)"

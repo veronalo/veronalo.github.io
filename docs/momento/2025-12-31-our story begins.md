@@ -18,11 +18,11 @@ tags:
 “嗯，可以啊~”
 
 
-<img src="/assets/img/2.jpg"  width="400">
+<img src="/assets/img/2.jpg"  width="800">
 
-<img src="/assets/img/3.jpg"  width="400">
+<img src="/assets/img/3.jpg"  width="800">
 
-<img src="/assets/img/1.jpg"  width="400">
+<img src="/assets/img/1.jpg"  width="800">
 
 
 

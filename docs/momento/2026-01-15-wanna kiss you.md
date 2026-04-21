@@ -1,5 +1,6 @@
 ---
 title: Kiss
+password: 20060327
 tags:
   - story
   - relationship
