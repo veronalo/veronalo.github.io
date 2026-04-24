@@ -1,0 +1,262 @@
+{% extends "main.html" %}
+
+{% block styles %}
+{{ super() }}
+
+<style>
+/* 让 main 区域占满导航栏以下全部高度 */
+.md-main {
+  height: calc(100vh - var(--md-header-height, 48px));
+  overflow: hidden;
+}
+
+/* 清除 MkDocs 为侧边栏预留的所有 margin/padding，让内容真正撑满 */
+.md-main__inner {
+  display: flex;
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  height: 100%;
+}
+
+/* 内容区：相对定位，作为伪元素背景的容器 */
+.md-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 100%;
+  flex: 1 1 100%;
+  overflow: hidden;
+}
+
+/* 用伪元素承载背景图，通过 opacity 控制透明度，不影响前景内容 */
+/* 默认暗黑模式背景 */
+.md-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('{{ "images/cover-bg.png" | url }}') no-repeat center center;
+  background-size: cover;
+  opacity: 0.5;
+  z-index: 0;
+  transition: background-image 0.3s ease, opacity 0.3s ease;
+}
+
+/* 白天模式：替换为 cover2.jpg */
+[data-md-color-scheme="default"] .md-content::before {
+  background-image: url('{{ "images/cover2.jpg" | url }}');
+  opacity: 0.6;
+}
+
+/* 清除默认内容区域样式，z-index 确保在背景层之上 */
+.md-content__inner {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 隐藏左侧导航侧边栏 */
+.md-sidebar--primary {
+  display: none !important;
+}
+
+/* 隐藏右侧目录侧边栏 */
+.md-sidebar--secondary {
+  display: none !important;
+}
+
+/* ===== 封面整体容器：纵向排列，居中显示 ===== */
+.cover-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ===== 主标题样式：暗黑模式为白色 ===== */
+.cover-title {
+  text-align: center;
+  color: #FFFFFF;
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  text-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+  margin: 0 0 1rem 0;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* 白天模式：主标题改为深黑 */
+[data-md-color-scheme="default"] .cover-title {
+  color: #041520e7;
+  text-shadow: 0 3px 15px rgba(255, 255, 255, 0.8);
+}
+
+/* ===== 副标题：暗黑模式为淡白色 ===== */
+.cover-subtitle {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.2rem;
+  font-weight: 300;
+  max-width: 500px;
+  line-height: 1.8;
+  white-space: pre-line;
+  margin: 0 auto 2.5rem auto;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* 白天模式：副标题改为淡黑色 */
+[data-md-color-scheme="default"] .cover-subtitle {
+  color: rgb(0, 0, 0);
+  text-shadow: 0 1px 5px rgba(255, 255, 255, 0.5);
+}
+
+/* ===== 按钮行容器：居中对齐 ===== */
+.cover-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+/* ===== 按钮基础样式：宽幅设计 ===== */
+.cover-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #263238;
+  color: #ffffff !important;
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  width: 100%;
+  max-width: 550px;
+}
+
+/* 内联 SVG 图标样式修正 */
+.cover-btn .twemoji {
+  display: inline-flex;
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 15px;
+}
+
+.cover-btn .twemoji svg {
+  fill: currentColor;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cover-btn:hover {
+  background: #37474F;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  color: #ffffff !important;
+}
+
+.cover-btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* 按钮颜色序列 - Deep Grey 色系 */
+.cover-btn:nth-child(2) { background: #37474F; }
+.cover-btn:nth-child(2):hover { background: #455A64; }
+.cover-btn:nth-child(3) { background: #455A64; }
+.cover-btn:nth-child(3):hover { background: #546E7A; }
+
+/* ===== 移动端适配 ===== */
+@media (max-width: 600px) {
+  .cover-title { 
+    font-size: 2.4rem; 
+  }
+  .cover-subtitle { 
+    font-size: 0.95rem; 
+    margin-bottom: 2rem; 
+  }
+  .cover-buttons {
+    max-width: 90%;
+  }
+  .cover-btn { 
+    width: 100%;
+  }
+  .cover-wrapper {
+    width: 95%;
+  }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="cover-wrapper">
+  <!-- 主标题 -->
+  <h1 class="cover-title">{{ page.meta.cover_title | default("Welcome to vero的小窝") }}</h1>
+  
+  <!-- 副标题：支持多行 -->
+  <p class="cover-subtitle">{{ page.meta.cover_subtitle | default("探索知识的边界\n记录成长的点滴") }}</p>
+
+  <!-- 按钮行 -->
+  <div class="cover-buttons">
+    {% if page.meta.buttons %}
+      {% for btn in page.meta.buttons %}
+        <a href="{{ btn.url | url }}" class="cover-btn">
+          {% if btn.icon %}
+            {# 核心逻辑：将 'material-link' 转换为 '.icons/material/link.svg' #}
+            {% set icon_parts = btn.icon.split('-', 1) %}
+            {% set icon_path = icon_parts[0] ~ "/" ~ icon_parts[1] %}
+            <span class="twemoji">
+              {% include ".icons/" ~ icon_path ~ ".svg" %}
+            </span>
+          {% endif %}
+          {{ btn.text }}
+        </a>
+      {% endfor %}
+    {% else %}
+      <!-- 默认按钮 -->
+      <a href="{{ 'getting-started/' | url }}" class="cover-btn">
+        <span class="twemoji">{% include ".icons/material/rocket.svg" %}</span>
+        快速开始
+      </a>
+      <a href="{{ 'notes/' | url }}" class="cover-btn">
+        <span class="twemoji">{% include ".icons/material/book.svg" %}</span>
+        浏览笔记
+      </a>
+      <a href="{{ 'about/' | url }}" class="cover-btn">
+        <span class="twemoji">{% include ".icons/material/account.svg" %}</span>
+        关于我
+      </a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{# 彻底隐藏不必要的组件 #}
+{% block site_nav %}{% endblock %}
+{% block footer %}{% endblock %}

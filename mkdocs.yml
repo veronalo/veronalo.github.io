@@ -4,6 +4,7 @@ repo_url: https://github.com/veronalo/veronalo.github.io
 theme:
   name: 'material'
   language: zh
+  custom_dir: overrides
   logo: assets/logo2.png
   favicon: assets/logo2.png
   palette:
@@ -27,7 +28,6 @@ theme:
     - navigation.tabs
     # - navigation.tabs.sticky
     - navigation.sections
-    - navigation.expand
     - navigation.indexes
     - navigation.path
     - navigation.footer
@@ -39,8 +39,21 @@ extra_css:
 nav:
   - Home: index.md
   - Notes:
-    - Home: notes/notes.md
-    - 电子电路基础: notes/ec.md
+    - ZJU: 
+      - 目录: notes/notes.md
+      - ISEE理论课:
+        - 概述: notes/isee/isee.md
+        - 电子电路基础: notes/isee/ec.md
+      - 实验课:
+        - 电子电路设计实验I: notes/experiment/dssy1.md
+      - 通识好课:
+        - 航空航天导论: notes/common/aa.md
+        - 心理学及应用: notes/common/psy.md
+        - 法语I: notes/common/francais.md
+      - 机器人:
+        - 机器人基础实践: notes/robot/robotexp.md
+  - Projects:
+    - 目录: projects/projects.md
   - Momento: 
     - Momento: momento/index.md
     - 2026.4.11写真: momento/2026-04-11-photo.md    
@@ -50,6 +63,8 @@ nav:
     - 2026.1.20 西湖边...: momento/2026-01-20-westlake.md
     - 2026.1.15 : momento/2026-01-15-wanna kiss you.md
     - 2025.12.31: momento/2025-12-31-our story begins.md
+    - 2025.12.10: momento/2025-12-10-chat.md
+  - Friends: friends.md
   - About: about.md
     
 
@@ -60,6 +75,7 @@ plugins:
       placeholder: 'hint：你身份证上的生日（8位）'                   # 密码输入框内的占位文本[reference:2]
       decryption_failure_message: '密码错误，请再试试' # 密码输入错误时的提示[reference:3]
       title_prefix: '🔒 [LOCK]'                     # 页面标题的前缀[reference:4]
+
 markdown_extensions:
   - admonition
   - attr_list

@@ -16,14 +16,14 @@
 
 :octicons-alert-16:**狗粮警告：**误闯这里的朋友，请慎重往下点开...
 
-<del>我都没怎么发pyq了，就让我在这里写写吧qwq</del>
+<del>这个人都很克制地没怎么发pyq了，就让我在这里写写吧qwq</del>
 
 *另应当事人要求，部分文档会上锁:)*
 
 ---
 
 ## 2026
-持续更新中...要一起去一万个地方:nerd:
+持续更新中...要一起去很多很多个地方:nerd:
 
 - [2024.4.11写真](./2026-04-11-photo.md)
 - [2026.4.4](./2026-04-04-scarymovies.md)
@@ -37,7 +37,7 @@
 ## 2025
 
 
-- [2025.12.31](./2025-12-31-our%20story%20begins.md) Our story begins...
+- [2025.12.31](./2025-12-31-our%20story%20begins.md)  Our story begins...
 
 
-When two souls meet...
+- [2025.12.10](./2025-12-10-chat.md)  When two souls meet...

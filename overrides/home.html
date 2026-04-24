@@ -1,0 +1,242 @@
+{% extends "main.html" %}
+
+{% block styles %}
+  {{ super() }}
+  <style>
+    /* 1. 让 body 成为滚动容器，而非 .md-main */
+    html {
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    /* 2. 移除 .md-main 的滚动和高度限制 */
+    .md-main {
+      height: auto !important; /* 关键：取消高度限制 */
+      overflow: visible !important; /* 关键：取消内部滚动 */
+    }
+
+    .md-main__inner {
+      display: block !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      max-width: 100% !important;
+    }
+
+    /* 3. 每一层占满视口 */
+    .page-section {
+      width: 100%;
+      min-height: 100vh; /* 改用 min-height 而非固定 height */
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+
+    /* 4. 第一层：封面样式 */
+    .section-cover {
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* 默认暗黑模式背景 */
+    .section-cover::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('{{ "images/cover-bg.png" | url }}') no-repeat center center;
+      background-size: cover;
+      opacity: 0.5;
+      z-index: 0;
+      transition: background-image 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* 白天模式：替换为 cover2.png */
+    [data-md-color-scheme="default"] .section-cover::before {
+      background-image: url('{{ "images/cover2.jpg" | url }}');
+      opacity: 0.6;
+    }
+
+    /* 封面内容布局 */
+    .cover-wrapper {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 90%;
+      max-width: 800px;
+      margin-top: -15vh;
+    }
+
+    /* 主标题：暗黑模式为白色 */
+    .cover-title {
+      text-align: center;
+      color: #FFFFFF;
+      font-size: 3.6rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      text-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+      margin: 0 0 1rem 0;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    /* 白天模式：主标题改为深黑 */
+    [data-md-color-scheme="default"] .cover-title {
+      color: #1a1a1a;
+      text-shadow: 0 3px 15px rgba(255, 255, 255, 0.8);
+    }
+
+    /* 副标题：暗黑模式为淡白色 */
+    .cover-subtitle {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1.05rem;
+      font-weight: 300;
+      max-width: 500px;
+      line-height: 1.8;
+      white-space: pre-line;
+      margin-bottom: 10rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    /* 白天模式：副标题改为淡黑色 */
+    [data-md-color-scheme="default"] .cover-subtitle {
+      color: rgba(0, 0, 0, 0.7);
+      text-shadow: 0 1px 5px rgba(255, 255, 255, 0.5);
+    }
+
+    /* 向下指示箭头 */
+    .scroll-down-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      z-index: 2;
+      transition: color 0.3s ease;
+    }
+
+    /* 白天模式：箭头改为深灰 */
+    [data-md-color-scheme="default"] .scroll-down-indicator {
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+      40% {transform: translateX(-50%) translateY(-10px);}
+      60% {transform: translateX(-50%) translateY(-5px);}
+    }
+
+    /* 宽幅单按钮：Deep Grey 配色 */
+    .cover-btn-wide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #263238;
+      color: #ffffff !important;
+      width: 100%;
+      max-width: 550px;
+      padding: 1rem 2rem;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      letter-spacing: 0.1em;
+    }
+    .cover-btn-wide:hover {
+      background: #37474F;
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    }
+    .cover-btn-wide .twemoji {
+      margin-right: 15px;
+      width: 1.2em;
+      height: 1.2em;
+    }
+
+    /* 5. 第二层：内容样式 */
+    .section-content {
+      background: var(--md-default-bg-color, #ffffff);
+      padding: 60px 20px;
+      min-height: 100vh; /* 确保至少占满一屏 */
+    }
+    .inner-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* 隐藏多余组件 */
+    .md-sidebar, .md-footer, .md-content__button { display: none !important; }
+
+    @media (max-width: 600px) {
+      .cover-title { font-size: 2.4rem; }
+      .cover-subtitle { font-size: 0.95rem; margin-bottom: 6rem; }
+      .cover-btn-wide { width: 90%; }
+      .cover-wrapper { margin-top: -10vh; }
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <!-- 第一层：视觉封面 -->
+  <section class="page-section section-cover">
+    <div class="cover-wrapper">
+      <h1 class="cover-title">{{ page.meta.cover_title | default("Welcome to vero的小窝") }}</h1>
+      
+      <!-- 副标题：支持多行 -->
+      <p class="cover-subtitle">{{ page.meta.cover_subtitle | default("探索知识的边界\n记录成长的点滴") }}</p>
+
+      <!-- 单个 Deep Grey 宽幅按钮 -->
+      {% if page.meta.buttons and page.meta.buttons|length > 0 %}
+        {% set btn = page.meta.buttons[0] %}
+        <a href="{{ btn.url | url }}" class="cover-btn-wide">
+          {% if btn.icon %}
+            {% set icon_parts = btn.icon.split('-', 1) %}
+            {% set icon_path = icon_parts[0] ~ "/" ~ icon_parts[1] %}
+            <span class="twemoji">{% include ".icons/" ~ icon_path ~ ".svg" %}</span>
+          {% endif %}
+          {{ btn.text }}
+        </a>
+      {% else %}
+        <a href="#section-2" class="cover-btn-wide">
+          <span class="twemoji">{% include ".icons/material/arrow-right.svg" %}</span>
+          EXPLORE CONTENT
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- 向下箭头 -->
+    <div class="scroll-down-indicator" onclick="document.getElementById('section-2').scrollIntoView({behavior: 'smooth'})">
+      <span class="twemoji" style="font-size: 2.5rem;">{% include ".icons/material/chevron-down.svg" %}</span>
+    </div>
+  </section>
+
+  <!-- 第二层：Markdown 内容 -->
+  <section class="page-section section-content" id="section-2">
+    <div class="inner-content">
+      <article class="md-content__inner">
+        {{ page.content }}
+      </article>
+    </div>
+  </section>
+{% endblock %}
+
+{% block footer %}{% endblock %}
