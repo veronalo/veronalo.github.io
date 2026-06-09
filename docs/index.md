@@ -1,5 +1,5 @@
 ---
-template: home1.html
+template: home.html
 hide:
   - toc
 cover_title: "Welcome to vero的小窝!"
@@ -31,4 +31,7 @@ buttons:
 - 一些杂七杂八的碎碎念
 
 
+## 近期更新
 
+- [2026.5.31 宝石山日落](./2026-05-31-sunset.md)
+- [2026.4.26 海宁](./2026-04-26-haining.md)

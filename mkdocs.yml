@@ -31,6 +31,7 @@ theme:
     - navigation.indexes
     - navigation.path
     - navigation.footer
+    - header.autohide
   icon:
     repo: fontawesome/brands/github
 extra_css:
@@ -44,19 +45,28 @@ nav:
       - ISEE理论课:
         - 概述: notes/isee/isee.md
         - 电子电路基础: notes/isee/ec.md
+        - 半导体物理: notes/isee/semiconductorfundamentals.md
       - 实验课:
+        - 电子工程训练: notes/experiment/dgx.md
+        - 普通物理学实验I: notes/experiment/generalphy.md
         - 电子电路设计实验I: notes/experiment/dssy1.md
       - 通识好课:
+        - 清代文化史: notes/common/qing.md
         - 航空航天导论: notes/common/aa.md
         - 心理学及应用: notes/common/psy.md
         - 法语I: notes/common/francais.md
       - 机器人:
+        - 机器人导论: notes/robot/robotintro.md
         - 机器人基础实践: notes/robot/robotexp.md
+      - 化学:
+        - 普通化学: notes/chemisty/generalchemisty.md
   - Projects:
     - 目录: projects/projects.md
   - Momento: 
     - Momento: momento/index.md
-    - 2026.4.11写真: momento/2026-04-11-photo.md    
+    - 2026.5.31 日落: momento/2026-05-31-sunset.md
+    - 2026.4.26 海宁: momento/2026-04-26-haining.md
+    - 2026.4.11 写真: momento/2026-04-11-photo.md    
     - 2026.4.4 : momento/2026-04-04-scarymovies.md
     - 2026.3.28 油菜花...: momento/2026-03-28-youcaihua.md
     - 2026.1.23 鼓浪屿...: momento/2026-01-23-sunset&afterglow.md
