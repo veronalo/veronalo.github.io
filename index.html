@@ -128,6 +128,8 @@
     }
 
     .section-cover {
+      --cover-parallax-x: 0px;
+      --cover-parallax-y: 0px;
       align-items: center;
       justify-content: center;
       overflow: hidden;
@@ -145,8 +147,8 @@
       background-size: cover;
       opacity: 0.58;
       z-index: 0;
-      transform: translateX(-50%) scale(1.035);
-      transition: background-image 0.45s ease, opacity 0.45s ease, transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+      transform: translate3d(calc(-50% + var(--cover-parallax-x)), var(--cover-parallax-y), 0) scale(1.035);
+      transition: background-image 0.45s ease, opacity 0.45s ease;
       will-change: transform;
     }
 
@@ -165,7 +167,7 @@
       background-image: url('images/cover2-color.png');
       background-position: center bottom;
       opacity: 0.78;
-      transform: translateX(-50%) scale(1.006);
+      transform: translate3d(calc(-50% + var(--cover-parallax-x)), var(--cover-parallax-y), 0) scale(1.012);
     }
 
     [data-md-color-scheme="default"] .section-cover::after {
@@ -212,16 +214,93 @@
     }
 
     .cover-subtitle {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       max-width: 500px;
+      min-height: 7.2rem;
       margin: 0 0 10rem;
       color: rgba(255, 255, 255, 0.86);
-      text-align: center;
+      text-align: left;
       font-size: 1.05rem;
       font-weight: 300;
-      line-height: 1.8;
-      white-space: pre-line;
+      line-height: 1.65;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
       transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .cover-quote {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      margin: 0;
+    }
+
+    .cover-quote.is-hidden {
+      display: none;
+    }
+
+    .cover-quote__fr,
+    .cover-quote__zh {
+      margin: 0;
+    }
+
+    .cover-quote__fr,
+    .cover-quote__zh,
+    .cover-quote__source {
+      opacity: 0;
+      transform: translateY(2px);
+      animation: cover-line-fade 1.25s ease forwards;
+    }
+
+    .cover-quote__fr {
+      font-family: "LXGW WenKai", "LXGW WenKai Screen", sans-serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.65;
+      animation-delay: 0.65s;
+    }
+
+    .cover-quote__zh {
+      margin-top: 0.7rem;
+      font-size: 0.95rem;
+      animation-delay: 1.3s;
+    }
+
+    .cover-quote__source {
+      align-self: flex-end;
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      font-style: normal;
+      text-align: right;
+      animation-delay: 1.95s;
+    }
+
+    .cover-quote__source-title {
+      font-family: "Harlow Solid Italic", "French Script MT", "Gabriola", "Kunstler Script", "Pristina", "Vladimir Script", cursive;
+      font-size: 1.2rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+
+    @keyframes cover-line-fade {
+      to {
+        opacity: var(--cover-line-opacity, 1);
+        transform: translateY(0);
+      }
+    }
+
+    .cover-quote__zh {
+      --cover-line-opacity: 0.9;
+    }
+
+    .cover-quote__source {
+      --cover-line-opacity: 0.76;
     }
 
     [data-md-color-scheme="default"] .cover-subtitle {
@@ -453,13 +532,34 @@
 
     @media (max-width: 600px) {
       .cover-title { font-size: 2.4rem; }
-      .cover-subtitle { margin-bottom: 6rem; font-size: 0.95rem; }
+      .cover-subtitle { min-height: 8rem; margin-bottom: 6rem; font-size: 0.95rem; }
+      .cover-quote__fr { font-size: 0.95rem; }
+      .cover-quote__zh { font-size: 0.88rem; }
       .cover-btn-wide { width: 90%; }
       .cover-wrapper { margin-top: -10vh; }
       .floor-switcher { right: 12px; }
       .floor-switcher__item {
         width: 0.68rem;
         height: 0.68rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .section-cover::before {
+        transform: translateX(-50%) scale(1.035);
+      }
+
+      [data-md-color-scheme="default"] .section-cover::before {
+        transform: translateX(-50%) scale(1.012);
+      }
+
+      .cover-wrapper,
+      .cover-quote__fr,
+      .cover-quote__zh,
+      .cover-quote__source {
+        opacity: var(--cover-line-opacity, 1);
+        transform: none;
+        animation: none;
       }
     }
   </style>
@@ -804,10 +904,68 @@
   <section class="page-section section-cover" id="top">
     <div class="cover-wrapper">
       <h1 class="cover-title">Welcome to vero的小窝!</h1>
-      <p class="cover-subtitle">这是一个关于学习、生活与哲学的空间
-你所热爱的 就是你的生活...
-Ce que ton cœur aime, voilà ta vie.
-</p>
+      <div class="cover-subtitle" aria-live="polite">
+        
+        
+          
+            <figure class="cover-quote" data-cover-quote>
+              <div>
+                <p class="cover-quote__fr">Les yeux ne voient pas vraiment les choses importantes, il faut avoir le cœur pour voir clairement.</p>
+                <p class="cover-quote__zh">眼睛是看不见真正东西的，必须用心才能看清楚。</p>
+              </div>
+              <figcaption class="cover-quote__source">—— Antoine de Saint-Exupéry, <span class="cover-quote__source-title">Le Petit Prince</span></figcaption>
+            </figure>
+          
+            <figure class="cover-quote is-hidden" data-cover-quote>
+              <div>
+                <p class="cover-quote__fr">C'est le temps que tu m'as consacré qui a fait mon étoile.</p>
+                <p class="cover-quote__zh">你为你的玫瑰花花费了时间，才使她变得如此重要。</p>
+              </div>
+              <figcaption class="cover-quote__source">—— Antoine de Saint-Exupéry, <span class="cover-quote__source-title">Le Petit Prince</span></figcaption>
+            </figure>
+          
+            <figure class="cover-quote is-hidden" data-cover-quote>
+              <div>
+                <p class="cover-quote__fr">On ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.</p>
+                <p class="cover-quote__zh">人只有用心去看，才能看到真实。实质性东西用眼睛是看不见的。</p>
+              </div>
+              <figcaption class="cover-quote__source">—— Antoine de Saint-Exupéry, <span class="cover-quote__source-title">Le Petit Prince</span></figcaption>
+            </figure>
+          
+            <figure class="cover-quote is-hidden" data-cover-quote>
+              <div>
+                <p class="cover-quote__fr">Les étoiles sont des lanternes suspendues au ciel par qui quelqu'un monte à ses rêves...</p>
+                <p class="cover-quote__zh">星星发亮是为了让每一个人有一天都能找到属于自己的星星。</p>
+              </div>
+              <figcaption class="cover-quote__source">—— Antoine de Saint-Exupéry, <span class="cover-quote__source-title">Le Petit Prince</span></figcaption>
+            </figure>
+          
+            <figure class="cover-quote is-hidden" data-cover-quote>
+              <div>
+                <p class="cover-quote__fr">Il est triste d'oublier un ami. Tout le monde n'a pas eu un ami.</p>
+                <p class="cover-quote__zh">忘记朋友是可悲的。不是每个人都有过朋友。</p>
+              </div>
+              <figcaption class="cover-quote__source">—— Antoine de Saint-Exupéry, <span class="cover-quote__source-title">Le Petit Prince</span></figcaption>
+            </figure>
+          
+            <figure class="cover-quote is-hidden" data-cover-quote>
+              <div>
+                <p class="cover-quote__fr">Tu deviens responsable de ce que tu as apprivoisé.</p>
+                <p class="cover-quote__zh">你要对你所驯养的东西负责到底。</p>
+              </div>
+              <figcaption class="cover-quote__source">—— Antoine de Saint-Exupéry, <span class="cover-quote__source-title">Le Petit Prince</span></figcaption>
+            </figure>
+          
+            <figure class="cover-quote is-hidden" data-cover-quote>
+              <div>
+                <p class="cover-quote__fr">Tous les grands étaient enfants, mais peu d'entre eux s'en souviennent.</p>
+                <p class="cover-quote__zh">每个大人都曾经是小孩，只是他们忘了。</p>
+              </div>
+              <figcaption class="cover-quote__source">—— Antoine de Saint-Exupéry, <span class="cover-quote__source-title">Le Petit Prince</span></figcaption>
+            </figure>
+          
+        
+      </div>
 
       
         
@@ -842,8 +1000,9 @@ Ce que ton cœur aime, voilà ta vie.
 </ul>
 <h2 id="_2">近期更新</h2>
 <ul>
-<li><a href="./2026-05-31-sunset.md">2026.5.31 宝石山日落</a></li>
-<li><a href="./2026-04-26-haining.md">2026.4.26 海宁</a></li>
+<li><a href="notes/isee/semiconductorfundamentals/">半导体物理[笔记]</a></li>
+<li><a href="momento/2026-05-31-sunset/">2026.5.31 宝石山日落</a></li>
+<li><a href="momento/2026-04-26-haining/">2026.4.26 海宁</a></li>
 </ul>
       </article>
     </div>
@@ -859,10 +1018,63 @@ Ce que ton cœur aime, voilà ta vie.
       const cover = document.getElementById("top");
       const content = document.getElementById("section-2");
       const switches = document.querySelectorAll(".floor-switcher__item");
+      const quotes = document.querySelectorAll("[data-cover-quote]");
       const targets = { top: cover, "section-2": content };
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       let isSnapping = false;
       let snapTimer = 0;
+
+      if (cover && !prefersReducedMotion) {
+        let targetX = 0;
+        let targetY = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let rafId = 0;
+
+        const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+        const renderMotion = () => {
+          currentX += (targetX - currentX) * 0.1;
+          currentY += (targetY - currentY) * 0.1;
+
+          cover.style.setProperty("--cover-parallax-x", `${(currentX * 12).toFixed(2)}px`);
+          cover.style.setProperty("--cover-parallax-y", `${(currentY * 8).toFixed(2)}px`);
+
+          if (Math.abs(targetX - currentX) > 0.002 || Math.abs(targetY - currentY) > 0.002) {
+            rafId = window.requestAnimationFrame(renderMotion);
+          } else {
+            rafId = 0;
+          }
+        };
+
+        const queueMotion = () => {
+          if (!rafId) {
+            rafId = window.requestAnimationFrame(renderMotion);
+          }
+        };
+
+        cover.addEventListener("pointermove", (event) => {
+          const rect = cover.getBoundingClientRect();
+          const pointerX = clamp((event.clientX - rect.left) / rect.width, 0, 1);
+          const pointerY = clamp((event.clientY - rect.top) / rect.height, 0, 1);
+          targetX = (pointerX - 0.5) * 2;
+          targetY = (pointerY - 0.5) * 2;
+          queueMotion();
+        });
+
+        cover.addEventListener("pointerleave", () => {
+          targetX = 0;
+          targetY = 0;
+          queueMotion();
+        });
+      }
+
+      if (quotes.length > 1) {
+        const quoteIndex = Math.floor(Math.random() * quotes.length);
+        quotes.forEach((quote, index) => {
+          quote.classList.toggle("is-hidden", index !== quoteIndex);
+        });
+      }
 
       const snapTo = (target) => {
         if (!target || isSnapping) return;
