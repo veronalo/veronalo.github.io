@@ -18,3 +18,31 @@
   /* border-left-width: 8px; */      /* 可选：修改边框宽度 */
   color: #b1baca;              
 }
+
+.page-statistics {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  margin: -0.9rem 0 1.6rem;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.72rem;
+  line-height: 1.6;
+  opacity: 0.82;
+}
+
+.page-statistics p {
+  margin: 0;
+}
+
+.page-statistics .twemoji {
+  width: 1.05em;
+  height: 1.05em;
+  color: var(--md-primary-fg-color);
+  vertical-align: -0.15em;
+}
+
+.page-statistics__separator {
+  margin: 0 0.2rem;
+  opacity: 0.45;
+}

@@ -183,7 +183,7 @@
       flex-direction: column;
       align-items: center;
       width: min(90vw, 800px);
-      margin-top: -15vh;
+      margin-top: -1vh;
       opacity: 0;
       transform: translateY(18px);
       animation: cover-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.08s forwards;
@@ -398,6 +398,191 @@
       margin: 0 auto;
     }
 
+    .home-overview {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: clamp(3rem, 8vw, 7rem);
+      align-items: start;
+      padding: clamp(4rem, 10vh, 7rem) 0;
+    }
+
+    .home-overview h1,
+    .home-overview h2 {
+      letter-spacing: 0;
+    }
+
+    .home-overview h1 {
+      margin: 0.3rem 0 1.2rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.18;
+    }
+
+    .home-overview h2 {
+      margin: 0.3rem 0 1.5rem;
+      font-size: 1.45rem;
+    }
+
+    .home-overview__eyebrow {
+      margin: 0;
+      color: var(--md-primary-fg-color);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+    }
+
+    .home-overview__lead {
+      max-width: 32rem;
+      margin: 0;
+      color: var(--md-default-fg-color--light);
+      font-size: 1rem;
+      line-height: 1.9;
+    }
+
+    .home-overview__channels {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.12rem 0.32rem;
+    }
+
+    .home-overview__channels > span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.18rem;
+      white-space: nowrap;
+    }
+
+    .home-overview__channel-icon {
+      display: block;
+      width: 0.95em;
+      height: 0.95em;
+      object-fit: contain;
+      vertical-align: -0.1em;
+    }
+
+    .home-overview__channel-separator {
+      color: var(--md-default-fg-color--lighter);
+    }
+
+    .home-overview__status {
+      margin: 1rem 0 0;
+      color: var(--md-default-fg-color--lighter);
+      font-size: 0.82rem;
+    }
+
+    .home-overview__topics {
+      display: grid;
+      gap: 0.9rem;
+      margin-top: 2.4rem;
+    }
+
+    .home-overview__topic {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 0;
+      color: var(--md-default-fg-color) !important;
+      text-decoration: none;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .home-overview__topic:hover {
+      color: var(--md-primary-fg-color) !important;
+      transform: translateX(4px);
+    }
+
+    .home-overview__topic-index {
+      flex: 0 0 auto;
+      width: 1.8rem;
+      color: var(--md-primary-fg-color);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.72rem;
+      font-style: italic;
+    }
+
+    .home-overview__topic span {
+      display: flex;
+      flex-direction: column;
+      gap: 0.08rem;
+    }
+
+    .home-overview__topic strong {
+      font-size: 0.9rem;
+      font-weight: 650;
+    }
+
+    .home-overview__topic small,
+    .home-update small {
+      color: var(--md-default-fg-color--light);
+      font-size: 0.72rem;
+    }
+
+    .home-updates {
+      padding-left: clamp(1.8rem, 4vw, 3.5rem);
+      border-left: 1px solid var(--md-default-fg-color--lightest);
+    }
+
+    .home-updates__list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .home-update {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 4.25rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--md-default-fg-color--lightest);
+      color: var(--md-default-fg-color) !important;
+      text-decoration: none;
+      transition: color 0.2s ease, padding 0.25s ease;
+    }
+
+    .home-update:first-child {
+      border-top: 1px solid var(--md-default-fg-color--lightest);
+    }
+
+    .home-update > span:first-child {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .home-update strong {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .home-update__arrow {
+      color: var(--md-primary-fg-color);
+      font-size: 1.1rem;
+      transition: transform 0.2s ease;
+    }
+
+    .home-update:hover {
+      padding-left: 0.35rem;
+      color: var(--md-primary-fg-color) !important;
+    }
+
+    .home-update:hover .home-update__arrow {
+      transform: translateX(4px);
+    }
+
+    @media (max-width: 760px) {
+      .home-overview {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+        padding: 3.5rem 0;
+      }
+
+      .home-updates {
+        padding-left: 0;
+        border-left: 0;
+      }
+    }
+
     .floor-switcher {
       position: fixed;
       top: 50%;
@@ -536,7 +721,7 @@
       .cover-quote__fr { font-size: 0.95rem; }
       .cover-quote__zh { font-size: 0.88rem; }
       .cover-btn-wide { width: 90%; }
-      .cover-wrapper { margin-top: -10vh; }
+      .cover-wrapper { margin-top: -5vh; }
       .floor-switcher { right: 12px; }
       .floor-switcher__item {
         width: 0.68rem;
@@ -602,11 +787,6 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
-      
-        
-        <a href="#home" class="md-skip">
-          跳转至
-        </a>
       
     </div>
     <div data-md-component="announce">
@@ -844,6 +1024,28 @@
   
   
   
+    
+    
+      <li class="md-tabs__item">
+        <a href="thoughts/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Thoughts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
     <li class="md-tabs__item">
       <a href="friends/" class="md-tabs__link">
         
@@ -988,22 +1190,60 @@
   <section class="page-section section-content" id="section-2">
     <div class="inner-content">
       <article class="md-content__inner">
-        <h1 id="home">Home</h1>
-<hr />
-<h1 id="welcome-to-vero">Welcome to vero的小窝</h1>
-<p>紧张施工中...</p>
-<p><del>实则现在只写了和哒哒嗒嗒小姐的momento</del></p>
-<h2 id="_1">主要内容</h2>
-<ul>
-<li>个人学习笔记整理和经验总结</li>
-<li>一些杂七杂八的碎碎念</li>
-</ul>
-<h2 id="_2">近期更新</h2>
-<ul>
-<li><a href="notes/isee/semiconductorfundamentals/">半导体物理[笔记]</a></li>
-<li><a href="momento/2026-05-31-sunset/">2026.5.31 宝石山日落</a></li>
-<li><a href="momento/2026-04-26-haining/">2026.4.26 海宁</a></li>
-</ul>
+        <section class="home-overview">
+  <div class="home-overview__intro">
+    <p class="home-overview__eyebrow">WELCOME HOME</p>
+    <h1>Welcome to vero的小窝~</h1>
+    <p class="home-overview__lead home-overview__channels">
+      <span>notes <img class="home-overview__channel-icon" src="/assets/icons/notes.svg" alt=""></span>
+      <span class="home-overview__channel-separator">&amp;</span>
+      <span>projects <img class="home-overview__channel-icon" src="/assets/icons/projects.svg" alt=""></span>
+      <span class="home-overview__channel-separator">&amp;</span>
+      <span>thoughts <img class="home-overview__channel-icon" src="/assets/icons/thoughts.svg" alt=""></span>
+      <span class="home-overview__channel-separator">&amp;</span>
+      <span>momento <img class="home-overview__channel-icon" src="/assets/icons/momento.svg" alt=""></span>
+      <span class="home-overview__channel-separator">&amp;</span>
+      <span>friends <img class="home-overview__channel-icon" src="/assets/icons/friends.svg" alt=""></span>
+      <span>in ZJU</span>
+    </p>
+    <p class="home-overview__status">紧张施工中...</p>
+
+    <div class="home-overview__topics">
+      <a class="home-overview__topic" href="/notes/notes/">
+        <span class="home-overview__topic-index">Ⅰ</span>
+        <span><strong>学习笔记</strong><small>学业与笔记分享</small></span>
+      </a>
+      <a class="home-overview__topic" href="/projects/projects/">
+        <span class="home-overview__topic-index">Ⅱ</span>
+        <span><strong>项目实践</strong><small>项目经历总结</small></span>
+      </a>
+      <a class="home-overview__topic" href="/momento/">
+        <span class="home-overview__topic-index">Ⅲ</span>
+        <span><strong>生活碎片</strong><small>一些杂七杂八的碎碎念</small></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="home-updates">
+    <p class="home-overview__eyebrow">RECENT UPDATES</p>
+    <h2>近期更新</h2>
+
+    <div class="home-updates__list">
+      <a class="home-update" href="/notes/isee/semiconductorfundamentals/">
+        <span><strong>半导体物理</strong><small>ISEE · 学习笔记</small></span>
+        <span class="home-update__arrow">→</span>
+      </a>
+      <a class="home-update" href="/momento/2026-05-31-sunset/">
+        <span><strong>宝石山日落</strong><small>Momento · 2026.05.31</small></span>
+        <span class="home-update__arrow">→</span>
+      </a>
+      <a class="home-update" href="/momento/2026-04-26-haining/">
+        <span><strong>海宁</strong><small>Momento · 2026.04.26</small></span>
+        <span class="home-update__arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
       </article>
     </div>
   </section>
