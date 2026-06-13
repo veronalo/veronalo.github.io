@@ -143,7 +143,7 @@
       width: 100vw;
       min-height: 100vh;
       min-height: 100svh;
-      background: url('images/cover-bg.png') no-repeat center center;
+      background: url('images/cover-bg.webp') no-repeat center center;
       background-size: cover;
       opacity: 0.58;
       z-index: 0;
@@ -164,10 +164,38 @@
     }
 
     [data-md-color-scheme="default"] .section-cover::before {
-      background-image: url('images/cover2-color.png');
+      background-image: url('images/cover2-color.webp');
       background-position: center bottom;
       opacity: 0.78;
       transform: translate3d(calc(-50% + var(--cover-parallax-x)), var(--cover-parallax-y), 0) scale(1.012);
+    }
+
+    .home-water-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.55s ease;
+    }
+
+    .home-water-canvas.is-ready:not(.is-disabled) {
+      opacity: 0.58;
+    }
+
+    .section-cover.water-active::before {
+      opacity: 0;
+    }
+
+    [data-md-color-scheme="default"] .section-cover.water-active::before {
+      opacity: 0.78;
+    }
+
+    [data-md-color-scheme="default"] .home-water-canvas {
+      display: none;
     }
 
     [data-md-color-scheme="default"] .section-cover::after {
@@ -178,7 +206,7 @@
 
     .cover-wrapper {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -738,6 +766,10 @@
         transform: translateX(-50%) scale(1.012);
       }
 
+      .home-water-canvas {
+        display: none;
+      }
+
       .cover-wrapper,
       .cover-quote__fr,
       .cover-quote__zh,
@@ -1104,6 +1136,13 @@
               <article class="md-content__inner md-typeset">
                 
   <section class="page-section section-cover" id="top">
+    <canvas
+      class="home-water-canvas"
+      id="home-water-canvas"
+      data-src="images/cover-bg.webp"
+      data-fallback-src="images/cover-bg.png"
+      aria-hidden="true"
+    ></canvas>
     <div class="cover-wrapper">
       <h1 class="cover-title">Welcome to vero的小窝!</h1>
       <div class="cover-subtitle" aria-live="polite">
@@ -1380,6 +1419,7 @@
       }, { passive: false });
     })();
   </script>
+  <script src="js/home-water.js?v=13"></script>
 
               </article>
             </div>
