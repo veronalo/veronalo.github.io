@@ -44,8 +44,11 @@ nav:
       - 目录: notes/notes.md
       - ISEE理论课:
         - 概述: notes/isee/isee.md
+        - 信息与电子工程导论: notes/isee/isee_intro.md
         - 电子电路基础: notes/isee/ec.md
+        - 集成电路导论: notes/isee/ic_intro.md
         - 半导体物理: notes/isee/semiconductorfundamentals.md
+        - 信号与系统: notes/isee/signal&system.md
       - 实验课:
         - 电子工程训练: notes/experiment/dgx.md
         - 普通物理学实验I: notes/experiment/generalphy.md
@@ -74,12 +77,18 @@ nav:
     - 2026.1.15 : momento/2026-01-15-wanna kiss you.md
     - 2025.12.31: momento/2025-12-31-our story begins.md
     - 2025.12.10: momento/2025-12-10-chat.md
+  - Thoughts:
+    - Thoughts: thoughts/index.md
   - Friends: friends.md
   - About: about.md
     
 
 plugins:
   - search
+  - statistics:
+      page_template: statistics.html
+      page_read_time: true
+      page_images: false
   - encryptcontent: 
       summary: '请输入密码以访问此内容'               # 加密内容的摘要信息[reference:1]
       placeholder: 'hint：你身份证上的生日（8位）'                   # 密码输入框内的占位文本[reference:2]
@@ -89,6 +98,9 @@ plugins:
 markdown_extensions:
   - admonition
   - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg

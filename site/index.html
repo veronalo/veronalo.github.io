@@ -128,6 +128,11 @@
     }
 
     .section-cover {
+      --cover-parallax-x: 0px;
+      --cover-parallax-y: 0px;
+      --tree-sway-x: 0px;
+      --tree-sway-y: 0px;
+      --tree-sway-rotate: 0deg;
       align-items: center;
       justify-content: center;
       overflow: hidden;
@@ -141,12 +146,12 @@
       width: 100vw;
       min-height: 100vh;
       min-height: 100svh;
-      background: url('images/cover-bg.png') no-repeat center center;
+      background: url('images/cover-bg.webp') no-repeat center center;
       background-size: cover;
       opacity: 0.58;
       z-index: 0;
-      transform: translateX(-50%) scale(1.035);
-      transition: background-image 0.45s ease, opacity 0.45s ease, transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+      transform: translate3d(calc(-50% + var(--cover-parallax-x)), var(--cover-parallax-y), 0) scale(1.035);
+      transition: background-image 0.45s ease, opacity 0.45s ease;
       will-change: transform;
     }
 
@@ -162,10 +167,92 @@
     }
 
     [data-md-color-scheme="default"] .section-cover::before {
-      background-image: url('images/cover2-color.png');
+      background-image: url('images/cover2-color.webp');
       background-position: center bottom;
       opacity: 0.78;
-      transform: translateX(-50%) scale(1.006);
+      transform: translate3d(calc(-50% + var(--cover-parallax-x)), var(--cover-parallax-y), 0) scale(1.012);
+    }
+
+    .home-water-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.55s ease;
+    }
+
+    .home-water-canvas.is-ready:not(.is-disabled) {
+      opacity: 0.58;
+    }
+
+    .section-cover.water-active::before {
+      opacity: 0;
+    }
+
+    [data-md-color-scheme="default"] .section-cover.water-active::before {
+      opacity: 0.78;
+    }
+
+    [data-md-color-scheme="default"] .home-water-canvas {
+      display: none;
+    }
+
+    .home-day-canvas {
+      position: absolute;
+      inset: 0;
+      left: 50%;
+      z-index: 0;
+      display: none;
+      width: 100vw;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transform:
+        translate3d(
+          calc(-50% + var(--cover-parallax-x)),
+          var(--cover-parallax-y),
+          0
+        )
+        scale(1.012);
+      transform-origin: center;
+      transition: opacity 0.55s ease;
+      will-change: transform;
+    }
+
+    [data-md-color-scheme="default"] .home-day-canvas {
+      display: block;
+    }
+
+    [data-md-color-scheme="default"] .home-day-canvas.is-ready {
+      opacity: 0.78;
+    }
+
+    [data-md-color-scheme="default"] .section-cover.day-active::before {
+      opacity: 0;
+    }
+
+    .home-petals-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: none;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+
+    [data-md-color-scheme="default"] .home-petals-canvas {
+      display: block;
+    }
+
+    [data-md-color-scheme="default"] .home-petals-canvas.is-ready {
+      opacity: 0.82;
     }
 
     [data-md-color-scheme="default"] .section-cover::after {
@@ -176,12 +263,12 @@
 
     .cover-wrapper {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
       width: min(90vw, 800px);
-      margin-top: -15vh;
+      margin-top: -1vh;
       opacity: 0;
       transform: translateY(18px);
       animation: cover-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.08s forwards;
@@ -212,16 +299,93 @@
     }
 
     .cover-subtitle {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       max-width: 500px;
+      min-height: 7.2rem;
       margin: 0 0 10rem;
       color: rgba(255, 255, 255, 0.86);
-      text-align: center;
+      text-align: left;
       font-size: 1.05rem;
       font-weight: 300;
-      line-height: 1.8;
-      white-space: pre-line;
+      line-height: 1.65;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
       transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .cover-quote {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      margin: 0;
+    }
+
+    .cover-quote.is-hidden {
+      display: none;
+    }
+
+    .cover-quote__fr,
+    .cover-quote__zh {
+      margin: 0;
+    }
+
+    .cover-quote__fr,
+    .cover-quote__zh,
+    .cover-quote__source {
+      opacity: 0;
+      transform: translateY(2px);
+      animation: cover-line-fade 1.25s ease forwards;
+    }
+
+    .cover-quote__fr {
+      font-family: "LXGW WenKai", "LXGW WenKai Screen", sans-serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.65;
+      animation-delay: 0.65s;
+    }
+
+    .cover-quote__zh {
+      margin-top: 0.7rem;
+      font-size: 0.95rem;
+      animation-delay: 1.3s;
+    }
+
+    .cover-quote__source {
+      align-self: flex-end;
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      font-style: normal;
+      text-align: right;
+      animation-delay: 1.95s;
+    }
+
+    .cover-quote__source-title {
+      font-family: "Harlow Solid Italic", "French Script MT", "Gabriola", "Kunstler Script", "Pristina", "Vladimir Script", cursive;
+      font-size: 1.2rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+
+    @keyframes cover-line-fade {
+      to {
+        opacity: var(--cover-line-opacity, 1);
+        transform: translateY(0);
+      }
+    }
+
+    .cover-quote__zh {
+      --cover-line-opacity: 0.9;
+    }
+
+    .cover-quote__source {
+      --cover-line-opacity: 0.76;
     }
 
     [data-md-color-scheme="default"] .cover-subtitle {
@@ -317,6 +481,191 @@
       width: 100%;
       max-width: 1000px;
       margin: 0 auto;
+    }
+
+    .home-overview {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: clamp(3rem, 8vw, 7rem);
+      align-items: start;
+      padding: clamp(4rem, 10vh, 7rem) 0;
+    }
+
+    .home-overview h1,
+    .home-overview h2 {
+      letter-spacing: 0;
+    }
+
+    .home-overview h1 {
+      margin: 0.3rem 0 1.2rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.18;
+    }
+
+    .home-overview h2 {
+      margin: 0.3rem 0 1.5rem;
+      font-size: 1.45rem;
+    }
+
+    .home-overview__eyebrow {
+      margin: 0;
+      color: var(--md-primary-fg-color);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+    }
+
+    .home-overview__lead {
+      max-width: 32rem;
+      margin: 0;
+      color: var(--md-default-fg-color--light);
+      font-size: 1rem;
+      line-height: 1.9;
+    }
+
+    .home-overview__channels {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.12rem 0.32rem;
+    }
+
+    .home-overview__channels > span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.18rem;
+      white-space: nowrap;
+    }
+
+    .home-overview__channel-icon {
+      display: block;
+      width: 0.95em;
+      height: 0.95em;
+      object-fit: contain;
+      vertical-align: -0.1em;
+    }
+
+    .home-overview__channel-separator {
+      color: var(--md-default-fg-color--lighter);
+    }
+
+    .home-overview__status {
+      margin: 1rem 0 0;
+      color: var(--md-default-fg-color--lighter);
+      font-size: 0.82rem;
+    }
+
+    .home-overview__topics {
+      display: grid;
+      gap: 0.9rem;
+      margin-top: 2.4rem;
+    }
+
+    .home-overview__topic {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 0;
+      color: var(--md-default-fg-color) !important;
+      text-decoration: none;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .home-overview__topic:hover {
+      color: var(--md-primary-fg-color) !important;
+      transform: translateX(4px);
+    }
+
+    .home-overview__topic-index {
+      flex: 0 0 auto;
+      width: 1.8rem;
+      color: var(--md-primary-fg-color);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.72rem;
+      font-style: italic;
+    }
+
+    .home-overview__topic span {
+      display: flex;
+      flex-direction: column;
+      gap: 0.08rem;
+    }
+
+    .home-overview__topic strong {
+      font-size: 0.9rem;
+      font-weight: 650;
+    }
+
+    .home-overview__topic small,
+    .home-update small {
+      color: var(--md-default-fg-color--light);
+      font-size: 0.72rem;
+    }
+
+    .home-updates {
+      padding-left: clamp(1.8rem, 4vw, 3.5rem);
+      border-left: 1px solid var(--md-default-fg-color--lightest);
+    }
+
+    .home-updates__list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .home-update {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 4.25rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--md-default-fg-color--lightest);
+      color: var(--md-default-fg-color) !important;
+      text-decoration: none;
+      transition: color 0.2s ease, padding 0.25s ease;
+    }
+
+    .home-update:first-child {
+      border-top: 1px solid var(--md-default-fg-color--lightest);
+    }
+
+    .home-update > span:first-child {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .home-update strong {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .home-update__arrow {
+      color: var(--md-primary-fg-color);
+      font-size: 1.1rem;
+      transition: transform 0.2s ease;
+    }
+
+    .home-update:hover {
+      padding-left: 0.35rem;
+      color: var(--md-primary-fg-color) !important;
+    }
+
+    .home-update:hover .home-update__arrow {
+      transform: translateX(4px);
+    }
+
+    @media (max-width: 760px) {
+      .home-overview {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+        padding: 3.5rem 0;
+      }
+
+      .home-updates {
+        padding-left: 0;
+        border-left: 0;
+      }
     }
 
     .floor-switcher {
@@ -445,21 +794,53 @@
       background: linear-gradient(180deg, transparent, rgba(34, 36, 38, 0.36) 18%, rgba(34, 36, 38, 0.36) 82%, transparent);
     }
 
-    .md-sidebar,
     .md-footer,
     .md-content__button {
       display: none !important;
     }
 
+    @media screen and (min-width: 76.25em) {
+      .md-sidebar {
+        display: none !important;
+      }
+    }
+
     @media (max-width: 600px) {
       .cover-title { font-size: 2.4rem; }
-      .cover-subtitle { margin-bottom: 6rem; font-size: 0.95rem; }
+      .cover-subtitle { min-height: 8rem; margin-bottom: 6rem; font-size: 0.95rem; }
+      .cover-quote__fr { font-size: 0.95rem; }
+      .cover-quote__zh { font-size: 0.88rem; }
       .cover-btn-wide { width: 90%; }
-      .cover-wrapper { margin-top: -10vh; }
+      .cover-wrapper { margin-top: -5vh; }
       .floor-switcher { right: 12px; }
       .floor-switcher__item {
         width: 0.68rem;
         height: 0.68rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .section-cover::before {
+        transform: translateX(-50%) scale(1.035);
+      }
+
+      [data-md-color-scheme="default"] .section-cover::before {
+        transform: translateX(-50%) scale(1.012);
+      }
+
+      .home-water-canvas,
+      .home-day-canvas,
+      .home-petals-canvas {
+        display: none;
+      }
+
+      .cover-wrapper,
+      .cover-quote__fr,
+      .cover-quote__zh,
+      .cover-quote__source {
+        opacity: var(--cover-line-opacity, 1);
+        transform: none;
+        animation: none;
       }
     }
   </style>
@@ -502,11 +883,6 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
-      
-        
-        <a href="#home" class="md-skip">
-          跳转至
-        </a>
       
     </div>
     <div data-md-component="announce">
@@ -744,6 +1120,28 @@
   
   
   
+    
+    
+      <li class="md-tabs__item">
+        <a href="thoughts/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Thoughts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
     <li class="md-tabs__item">
       <a href="friends/" class="md-tabs__link">
         
@@ -786,6 +1184,1663 @@
       <main class="md-main" data-md-component="main">
         <div class="md-main__inner md-grid">
           
+  
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="vero的小窝" class="md-nav__button md-logo" aria-label="vero的小窝" data-md-component="logo">
+      
+  <img src="assets/logo2.png" alt="logo">
+
+    </a>
+    vero的小窝
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/veronalo/veronalo.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Notes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZJU
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ZJU
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    目录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ISEE理论课
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ISEE理论课
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/isee/isee/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/isee/isee_intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    信息与电子工程导论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/isee/ec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电子电路基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/isee/ic_intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集成电路导论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/isee/semiconductorfundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    半导体物理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/isee/signal%26system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    信号与系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    实验课
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    实验课
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/experiment/dgx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电子工程训练
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/experiment/generalphy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通物理学实验I
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/experiment/dssy1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    电子电路设计实验I
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通识好课
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    通识好课
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/common/qing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    清代文化史
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/common/aa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    航空航天导论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/common/psy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    心理学及应用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/common/francais/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    法语I
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器人
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    机器人
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/robot/robotintro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器人导论
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/robot/robotexp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器人基础实践
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_6" id="__nav_2_1_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    化学
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    化学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="notes/chemisty/generalchemisty/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    普通化学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Projects
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="projects/projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    目录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="momento/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Momento
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Momento
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="momento/2026-05-31-sunset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026.5.31 日落
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="momento/2026-04-26-haining/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026.4.26 海宁
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="momento/2026-04-11-photo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026.4.11 写真
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="momento/2026-04-04-scarymovies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026.4.4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="momento/2026-03-28-youcaihua/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026.3.28 油菜花...
+  
+
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--encrypted"></span>
+  
+
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="momento/2026-01-23-sunset%26afterglow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026.1.23 鼓浪屿...
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="momento/2026-01-20-westlake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026.1.20 西湖边...
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="momento/2026-01-15-wanna%20kiss%20you/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026.1.15
+  
+
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--encrypted"></span>
+  
+
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="momento/2025-12-31-our%20story%20begins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025.12.31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="momento/2025-12-10-chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025.12.10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="thoughts/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thoughts
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Thoughts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="friends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Friends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+
           
             <div class="md-content" data-md-component="content">
               
@@ -802,12 +2857,88 @@
               <article class="md-content__inner md-typeset">
                 
   <section class="page-section section-cover" id="top">
+    <canvas
+      class="home-day-canvas"
+      id="home-day-canvas"
+      data-src="images/cover2-color.webp"
+      aria-hidden="true"
+    ></canvas>
+    <canvas
+      class="home-water-canvas"
+      id="home-water-canvas"
+      data-src="images/cover-bg.webp"
+      data-fallback-src="images/cover-bg.png"
+      aria-hidden="true"
+    ></canvas>
+    <canvas
+      class="home-petals-canvas"
+      id="home-petals-canvas"
+      aria-hidden="true"
+    ></canvas>
     <div class="cover-wrapper">
       <h1 class="cover-title">Welcome to vero的小窝!</h1>
-      <p class="cover-subtitle">这是一个关于学习、生活与哲学的空间
-你所热爱的 就是你的生活...
-Ce que ton cœur aime, voilà ta vie.
-</p>
+      <div class="cover-subtitle" aria-live="polite">
+        
+        
+          
+            <figure class="cover-quote" data-cover-quote>
+              <div>
+                <p class="cover-quote__fr">Les yeux ne voient pas vraiment les choses importantes, il faut avoir le cœur pour voir clairement.</p>
+                <p class="cover-quote__zh">眼睛是看不见真正东西的，必须用心才能看清楚。</p>
+              </div>
+              <figcaption class="cover-quote__source">—— Antoine de Saint-Exupéry, <span class="cover-quote__source-title">Le Petit Prince</span></figcaption>
+            </figure>
+          
+            <figure class="cover-quote is-hidden" data-cover-quote>
+              <div>
+                <p class="cover-quote__fr">C'est le temps que tu m'as consacré qui a fait mon étoile.</p>
+                <p class="cover-quote__zh">你为你的玫瑰花花费了时间，才使她变得如此重要。</p>
+              </div>
+              <figcaption class="cover-quote__source">—— Antoine de Saint-Exupéry, <span class="cover-quote__source-title">Le Petit Prince</span></figcaption>
+            </figure>
+          
+            <figure class="cover-quote is-hidden" data-cover-quote>
+              <div>
+                <p class="cover-quote__fr">On ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.</p>
+                <p class="cover-quote__zh">人只有用心去看，才能看到真实。实质性东西用眼睛是看不见的。</p>
+              </div>
+              <figcaption class="cover-quote__source">—— Antoine de Saint-Exupéry, <span class="cover-quote__source-title">Le Petit Prince</span></figcaption>
+            </figure>
+          
+            <figure class="cover-quote is-hidden" data-cover-quote>
+              <div>
+                <p class="cover-quote__fr">Les étoiles sont des lanternes suspendues au ciel par qui quelqu'un monte à ses rêves...</p>
+                <p class="cover-quote__zh">星星发亮是为了让每一个人有一天都能找到属于自己的星星。</p>
+              </div>
+              <figcaption class="cover-quote__source">—— Antoine de Saint-Exupéry, <span class="cover-quote__source-title">Le Petit Prince</span></figcaption>
+            </figure>
+          
+            <figure class="cover-quote is-hidden" data-cover-quote>
+              <div>
+                <p class="cover-quote__fr">Il est triste d'oublier un ami. Tout le monde n'a pas eu un ami.</p>
+                <p class="cover-quote__zh">忘记朋友是可悲的。不是每个人都有过朋友。</p>
+              </div>
+              <figcaption class="cover-quote__source">—— Antoine de Saint-Exupéry, <span class="cover-quote__source-title">Le Petit Prince</span></figcaption>
+            </figure>
+          
+            <figure class="cover-quote is-hidden" data-cover-quote>
+              <div>
+                <p class="cover-quote__fr">Tu deviens responsable de ce que tu as apprivoisé.</p>
+                <p class="cover-quote__zh">你要对你所驯养的东西负责到底。</p>
+              </div>
+              <figcaption class="cover-quote__source">—— Antoine de Saint-Exupéry, <span class="cover-quote__source-title">Le Petit Prince</span></figcaption>
+            </figure>
+          
+            <figure class="cover-quote is-hidden" data-cover-quote>
+              <div>
+                <p class="cover-quote__fr">Tous les grands étaient enfants, mais peu d'entre eux s'en souviennent.</p>
+                <p class="cover-quote__zh">每个大人都曾经是小孩，只是他们忘了。</p>
+              </div>
+              <figcaption class="cover-quote__source">—— Antoine de Saint-Exupéry, <span class="cover-quote__source-title">Le Petit Prince</span></figcaption>
+            </figure>
+          
+        
+      </div>
 
       
         
@@ -830,21 +2961,64 @@ Ce que ton cœur aime, voilà ta vie.
   <section class="page-section section-content" id="section-2">
     <div class="inner-content">
       <article class="md-content__inner">
-        <h1 id="home">Home</h1>
-<hr />
-<h1 id="welcome-to-vero">Welcome to vero的小窝</h1>
-<p>紧张施工中...</p>
-<p><del>实则现在只写了和哒哒嗒嗒小姐的momento</del></p>
-<h2 id="_1">主要内容</h2>
-<ul>
-<li>个人学习笔记整理和经验总结</li>
-<li>一些杂七杂八的碎碎念</li>
-</ul>
-<h2 id="_2">近期更新</h2>
-<ul>
-<li><a href="./2026-05-31-sunset.md">2026.5.31 宝石山日落</a></li>
-<li><a href="./2026-04-26-haining.md">2026.4.26 海宁</a></li>
-</ul>
+        <section class="home-overview">
+  <div class="home-overview__intro">
+    <p class="home-overview__eyebrow">WELCOME HOME</p>
+    <h1>Welcome to vero的小窝~</h1>
+    <p class="home-overview__lead home-overview__channels">
+      <span>notes <img class="home-overview__channel-icon" src="/assets/icons/notes.svg" alt=""></span>
+      <span class="home-overview__channel-separator">&amp;</span>
+      <span>projects <img class="home-overview__channel-icon" src="/assets/icons/projects.svg" alt=""></span>
+      <span class="home-overview__channel-separator">&amp;</span>
+      <span>thoughts <img class="home-overview__channel-icon" src="/assets/icons/thoughts.svg" alt=""></span>
+      <span class="home-overview__channel-separator">&amp;</span>
+      <span>momento <img class="home-overview__channel-icon" src="/assets/icons/momento.svg" alt=""></span>
+      <span class="home-overview__channel-separator">&amp;</span>
+      <span>friends <img class="home-overview__channel-icon" src="/assets/icons/friends.svg" alt=""></span>
+      <span>in ZJU</span>
+    </p>
+    <p class="home-overview__status">紧张施工中...</p>
+
+    <div class="home-overview__topics">
+      <a class="home-overview__topic" href="/notes/notes/">
+        <span class="home-overview__topic-index">Ⅰ</span>
+        <span><strong>学习笔记</strong><small>学业与笔记分享</small></span>
+      </a>
+      <a class="home-overview__topic" href="/projects/projects/">
+        <span class="home-overview__topic-index">Ⅱ</span>
+        <span><strong>项目实践</strong><small>项目经历总结</small></span>
+      </a>
+      <a class="home-overview__topic" href="/momento/">
+        <span class="home-overview__topic-index">Ⅲ</span>
+        <span><strong>生活碎片</strong><small>一些杂七杂八的碎碎念</small></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="home-updates">
+    <p class="home-overview__eyebrow">RECENT UPDATES</p>
+    <h2>近期更新</h2>
+
+    <div class="home-updates__list">
+      <a class="home-update" href="/notes/isee/isee_intro/">
+        <span><strong>信息与电子工程导论</strong><small>ISEE · 学习笔记</small></span>
+        <span class="home-update__arrow">→</span>
+      </a>
+      <a class="home-update" href="/notes/isee/semiconductorfundamentals/">
+        <span><strong>半导体物理</strong><small>ISEE · 学习笔记</small></span>
+        <span class="home-update__arrow">→</span>
+      </a>
+      <a class="home-update" href="/momento/2026-05-31-sunset/">
+        <span><strong>宝石山日落</strong><small>Momento · 2026.05.31</small></span>
+        <span class="home-update__arrow">→</span>
+      </a>
+      <a class="home-update" href="/momento/2026-04-26-haining/">
+        <span><strong>海宁</strong><small>Momento · 2026.04.26</small></span>
+        <span class="home-update__arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
       </article>
     </div>
   </section>
@@ -859,10 +3033,63 @@ Ce que ton cœur aime, voilà ta vie.
       const cover = document.getElementById("top");
       const content = document.getElementById("section-2");
       const switches = document.querySelectorAll(".floor-switcher__item");
+      const quotes = document.querySelectorAll("[data-cover-quote]");
       const targets = { top: cover, "section-2": content };
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       let isSnapping = false;
       let snapTimer = 0;
+
+      if (cover && !prefersReducedMotion) {
+        let targetX = 0;
+        let targetY = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let rafId = 0;
+
+        const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+        const renderMotion = () => {
+          currentX += (targetX - currentX) * 0.1;
+          currentY += (targetY - currentY) * 0.1;
+
+          cover.style.setProperty("--cover-parallax-x", `${(currentX * 12).toFixed(2)}px`);
+          cover.style.setProperty("--cover-parallax-y", `${(currentY * 8).toFixed(2)}px`);
+
+          if (Math.abs(targetX - currentX) > 0.002 || Math.abs(targetY - currentY) > 0.002) {
+            rafId = window.requestAnimationFrame(renderMotion);
+          } else {
+            rafId = 0;
+          }
+        };
+
+        const queueMotion = () => {
+          if (!rafId) {
+            rafId = window.requestAnimationFrame(renderMotion);
+          }
+        };
+
+        cover.addEventListener("pointermove", (event) => {
+          const rect = cover.getBoundingClientRect();
+          const pointerX = clamp((event.clientX - rect.left) / rect.width, 0, 1);
+          const pointerY = clamp((event.clientY - rect.top) / rect.height, 0, 1);
+          targetX = (pointerX - 0.5) * 2;
+          targetY = (pointerY - 0.5) * 2;
+          queueMotion();
+        });
+
+        cover.addEventListener("pointerleave", () => {
+          targetX = 0;
+          targetY = 0;
+          queueMotion();
+        });
+      }
+
+      if (quotes.length > 1) {
+        const quoteIndex = Math.floor(Math.random() * quotes.length);
+        quotes.forEach((quote, index) => {
+          quote.classList.toggle("is-hidden", index !== quoteIndex);
+        });
+      }
 
       const snapTo = (target) => {
         if (!target || isSnapping) return;
@@ -928,6 +3155,8 @@ Ce que ton cœur aime, voilà ta vie.
       }, { passive: false });
     })();
   </script>
+  <script src="js/home-water.js?v=13"></script>
+  <script src="js/home-petals.js?v=4"></script>
 
               </article>
             </div>

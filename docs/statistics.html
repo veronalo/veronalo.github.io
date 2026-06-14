@@ -1,0 +1,5 @@
+<div class="page-statistics" markdown="1">
+:material-file-document-edit-outline: 约 {{ words }} 个字
+{% if code_lines != 0 %}<span class="page-statistics__separator">/</span> :material-code-tags: {{ code_lines }} 行代码{% endif %}
+{% if page_read_time %}<span class="page-statistics__separator">/</span> :material-clock-outline: {% if read_time == 0 %}预计阅读时间不到 1 分钟{% else %}预计阅读时间 {{ read_time }} 分钟{% endif %}{% endif %}
+</div>
