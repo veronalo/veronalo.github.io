@@ -60,7 +60,7 @@ buttons:
         <span class="home-overview__topic-index">Ⅱ</span>
         <span><strong>项目实践</strong><small>项目经历总结</small></span>
       </a>
-      <a class="home-overview__topic" href="/momento/">
+      <a class="home-overview__topic" href="/thoughts/">
         <span class="home-overview__topic-index">Ⅲ</span>
         <span><strong>生活碎片</strong><small>一些杂七杂八的碎碎念</small></span>
       </a>
