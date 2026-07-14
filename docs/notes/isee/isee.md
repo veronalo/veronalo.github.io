@@ -30,3 +30,5 @@ title: ISEE
 
 - [半导体物理[笔记]](./semiconductorfundamentals.md)
 - [信号与系统](./signal&system.md)
+- [数字系统设计[笔记]](./digital_system_design.md)
+- [人工智能[笔记]](./ai.md)

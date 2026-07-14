@@ -5,8 +5,8 @@ theme:
   name: 'material'
   language: zh
   custom_dir: overrides
-  logo: assets/logo2.png
-  favicon: assets/logo2.png
+  logo: assets/logo2.webp
+  favicon: assets/logo2.webp
   palette:
     # 手动日间模式
     - media: "(prefers-color-scheme: light)"
@@ -49,10 +49,14 @@ nav:
         - 集成电路导论: notes/isee/ic_intro.md
         - 半导体物理: notes/isee/semiconductorfundamentals.md
         - 信号与系统: notes/isee/signal&system.md
+        - 数字系统设计: notes/isee/digital_system_design.md
+        - 人工智能: notes/isee/ai.md
       - 实验课:
         - 电子工程训练: notes/experiment/dgx.md
         - 普通物理学实验I: notes/experiment/generalphy.md
-        - 电子电路设计实验I: notes/experiment/dssy1.md
+        - 电子电路设计实验Ⅰ: notes/experiment/dssy1.md
+        - 电子电路设计实验Ⅱ: notes/experiment/dssy2.md
+        - 数字系统设计实验: notes/experiment/sdsy.md
       - 通识好课:
         - 清代文化史: notes/common/qing.md
         - 航空航天导论: notes/common/aa.md
@@ -67,6 +71,7 @@ nav:
     - 目录: projects/projects.md
   - Momento: 
     - Momento: momento/index.md
+    - 2026.7.4 上海: momento/2026-07-04-shanghai.md
     - 2026.5.31 日落: momento/2026-05-31-sunset.md
     - 2026.4.26 海宁: momento/2026-04-26-haining.md
     - 2026.4.11 写真: momento/2026-04-11-photo.md    
@@ -95,6 +100,9 @@ plugins:
       placeholder: 'hint：你身份证上的生日（8位）'                   # 密码输入框内的占位文本[reference:2]
       decryption_failure_message: '密码错误，请再试试' # 密码输入错误时的提示[reference:3]
       title_prefix: '🔒 [LOCK]'                     # 页面标题的前缀[reference:4]
+
+hooks:
+  - hooks.py
 
 markdown_extensions:
   - admonition

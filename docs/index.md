@@ -72,8 +72,16 @@ buttons:
     <h2>近期更新</h2>
 
     <div class="home-updates__list">
-      <a class="home-update" href="/notes/isee/isee_intro/">
-        <span><strong>信息与电子工程导论</strong><small>ISEE · 学习笔记</small></span>
+      <a class="home-update" href="/notes/isee/ai/">
+        <span><strong>人工智能</strong><small>ISEE · 学习笔记</small></span>
+        <span class="home-update__arrow">→</span>
+      </a>
+      <a class="home-update" href="/notes/isee/digital_system_design/">
+        <span><strong>数字系统设计</strong><small>ISEE · 学习笔记</small></span>
+        <span class="home-update__arrow">→</span>
+      </a>
+      <a class="home-update" href="/notes/isee/signal&system/">
+        <span><strong>信号与系统</strong><small>ISEE · 学习笔记</small></span>
         <span class="home-update__arrow">→</span>
       </a>
       <a class="home-update" href="/notes/isee/semiconductorfundamentals/">
@@ -82,10 +90,6 @@ buttons:
       </a>
       <a class="home-update" href="/momento/2026-05-31-sunset/">
         <span><strong>宝石山日落</strong><small>Momento · 2026.05.31</small></span>
-        <span class="home-update__arrow">→</span>
-      </a>
-      <a class="home-update" href="/momento/2026-04-26-haining/">
-        <span><strong>海宁</strong><small>Momento · 2026.04.26</small></span>
         <span class="home-update__arrow">→</span>
       </a>
     </div>

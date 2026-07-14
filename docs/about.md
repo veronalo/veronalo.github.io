@@ -182,7 +182,7 @@
 
 <section class="about-profile">
   <div class="about-avatar-wrap">
-    <img class="about-avatar" src="../images/avatar.jpg" alt="vero 的头像">
+    <img class="about-avatar" src="../images/avatar.webp" alt="vero 的头像">
   </div>
 
   <div>
@@ -191,8 +191,7 @@
     <p class="about-line">2024 级 ZJU ISEEer / Shannoner</p>
 
     <p class="about-bio">
-      一个正在努力把学习、生活和一些细碎感受整理清楚的普通人。
-      这里会放课程笔记、项目记录、偶尔的生活瞬间，也会留下一点关于喜欢与成长的自言自语。
+      勤奋又乐观！
     </p>
 
     <ul class="about-tags">
@@ -233,5 +232,5 @@
 </section>
 
 <p class="about-note">
-  希望这个站点能像一个安静的小房间：有资料，有碎片，有正在变得清楚的想法，也有一点点不那么正式的生活气息。
+  希望这个小窝能留下一丝我存在过的痕迹，也希望能帮助到后人一些什么...
 </p>

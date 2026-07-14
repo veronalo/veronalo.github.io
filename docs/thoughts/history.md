@@ -25,8 +25,8 @@ tags:
       <p class="site-history__placeholder">注意白昼模式樱花树和樱花花瓣是会动的！</p>
     </div>
     <div class="site-history__gallery site-history__gallery--single">
-      <a href="../../assets/img/history/v3.0.png" data-history-image>
-        <img src="../../assets/img/history/v3.0.png" alt="v3.0 网站页面">
+      <a href="../../assets/img/history/v3.0.webp" data-history-image>
+        <img src="../../assets/img/history/v3.0.webp" alt="v3.0 网站页面">
       </a>
     </div>
   </section>
@@ -42,11 +42,11 @@ tags:
       <p class="site-history__placeholder">白昼模式的图片是用gpt生成的:）</p>
     </div>
     <div class="site-history__gallery">
-      <a href="../../assets/img/history/v2.0.png" data-history-image>
-        <img src="../../assets/img/history/v2.0.png" alt="v2.0 网站页面之一">
+      <a href="../../assets/img/history/v2.0.webp" data-history-image>
+        <img src="../../assets/img/history/v2.0.webp" alt="v2.0 网站页面之一">
       </a>
-      <a href="../../assets/img/history/v2.0(2).png" data-history-image>
-        <img src="../../assets/img/history/v2.0(2).png" alt="v2.0 网站页面之二">
+      <a href="../../assets/img/history/v2.0(2).webp" data-history-image>
+        <img src="../../assets/img/history/v2.0(2).webp" alt="v2.0 网站页面之二">
       </a>
     </div>
   </section>
@@ -61,11 +61,11 @@ tags:
       <p class="site-history__placeholder">加入了两张静态图片作为首页的背景</p>
     </div>
     <div class="site-history__gallery">
-      <a href="../../assets/img/history/v1.1.png" data-history-image>
-        <img src="../../assets/img/history/v1.1.png" alt="v1.1 网站页面之一">
+      <a href="../../assets/img/history/v1.1.webp" data-history-image>
+        <img src="../../assets/img/history/v1.1.webp" alt="v1.1 网站页面之一">
       </a>
-      <a href="../../assets/img/history/v1.1(2).png" data-history-image>
-        <img src="../../assets/img/history/v1.1(2).png" alt="v1.1 网站页面之二">
+      <a href="../../assets/img/history/v1.1(2).webp" data-history-image>
+        <img src="../../assets/img/history/v1.1(2).webp" alt="v1.1 网站页面之二">
       </a>
     </div>
   </section>
@@ -80,8 +80,8 @@ tags:
       <p class="site-history__placeholder">偶然看到MkDocs，果断尝试，效果惊艳...当时的首页还是用纯markdown手搓的（</p>
     </div>
     <div class="site-history__gallery site-history__gallery--single">
-      <a href="../../assets/img/history/v1.png" data-history-image>
-        <img src="../../assets/img/history/v1.png" alt="v1.0 网站页面">
+      <a href="../../assets/img/history/v1.webp" data-history-image>
+        <img src="../../assets/img/history/v1.webp" alt="v1.0 网站页面">
       </a>
     </div>
   </section>

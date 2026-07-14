@@ -41,16 +41,16 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: url('{{ "images/cover-bg.png" | url }}') no-repeat center center;
+  background: url('{{ "images/cover-bg.webp" | url }}') no-repeat center center;
   background-size: cover;
   opacity: 0.5;
   z-index: 0;
   transition: background-image 0.3s ease, opacity 0.3s ease;
 }
 
-/* 白天模式：替换为 cover2.jpg */
+/* 白天模式：替换为 cover2.webp */
 [data-md-color-scheme="default"] .md-content::before {
-  background-image: url('{{ "images/cover2.jpg" | url }}');
+  background-image: url('{{ "images/cover2.webp" | url }}');
   opacity: 0.6;
 }
 
