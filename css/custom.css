@@ -140,6 +140,17 @@
   grid-template-columns: minmax(0, 38rem);
 }
 
+.site-history__gallery.site-history__gallery--portrait {
+  grid-template-columns: minmax(0, 19.7rem);
+  width: min(100%, 19.7rem);
+}
+
+.site-history__gallery.site-history__gallery--portrait img {
+  width: 100%;
+  aspect-ratio: 562 / 580;
+  object-fit: contain;
+}
+
 .site-history__gallery a {
   display: block;
   overflow: hidden;
@@ -544,4 +555,33 @@
   .friend-card__arrow {
     transition: none;
   }
+}
+
+/* Numbered section dividers in "一别紫金港". */
+.zjg-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  text-align: center;
+}
+
+.zjg-section-title::before,
+.zjg-section-title::after {
+  width: 1.6rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--md-primary-fg-color) 68%, transparent)
+  );
+  content: "";
+}
+
+.zjg-section-title::after {
+  transform: scaleX(-1);
+}
+
+.zjg-section-title .headerlink {
+  display: none;
 }
