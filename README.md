@@ -18,16 +18,16 @@
 
 ## 新增图片
 
-建议将照片放在：
+建议按栏目存放照片。Momento 栏目的照片放在：
 
 ```text
-docs/assets/img/
+docs/assets/img/momento/
 ```
 
 在 Markdown 中可以先正常引用 JPG 或 PNG：
 
 ```html
-<img src="/assets/img/new-photo.jpg" width="800" alt="图片说明">
+<img src="/assets/img/momento/new-photo.jpg" width="800" alt="图片说明">
 ```
 
 写完后，在仓库根目录运行：
@@ -47,14 +47,14 @@ python tools\optimize_images.py
 例如：
 
 ```text
-docs/assets/img/new-photo.jpg
+docs/assets/img/momento/new-photo.jpg
 ```
 
 会变为：
 
 ```text
-docs/assets/img/new-photo.webp
-source-images/docs/assets/img/new-photo.jpg
+docs/assets/img/momento/new-photo.webp
+source-images/docs/assets/img/momento/new-photo.jpg
 ```
 
 图片文件名尽量保持唯一，例如 `shanghai-2026-01.jpg`，避免在不同目录中使用同名图片。

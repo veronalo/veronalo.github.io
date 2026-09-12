@@ -31,11 +31,11 @@ theme:
     - navigation.indexes
     - navigation.path
     - navigation.footer
-    - header.autohide
+    - navigation.top
   icon:
     repo: fontawesome/brands/github
 extra_css:
-  - css/custom.css
+  - css/custom.css?v=20260719
 
 nav:
   - Home: index.md
@@ -71,6 +71,7 @@ nav:
     - 目录: projects/projects.md
   - Momento: 
     - Momento: momento/index.md
+    - 2026.8 北疆: momento/2026-08-24-xinjiang.md
     - 2026.7.4 上海: momento/2026-07-04-shanghai.md
     - 2026.5.31 日落: momento/2026-05-31-sunset.md
     - 2026.4.26 海宁: momento/2026-04-26-haining.md
@@ -85,6 +86,7 @@ nav:
   - Thoughts:
     - Thoughts: thoughts/index.md
     - 施工记录: thoughts/history.md
+    - 一别紫金港: thoughts/zjg.md
   - Friends: friends.md
   - About: about.md
     

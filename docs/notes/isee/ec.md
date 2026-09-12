@@ -29,7 +29,7 @@ Semaster：大二秋冬
 
 模电部分就开始天书了，BJT与FET的小信号分析、反馈、频率响应、功放等，仙之人兮列如麻...我们虽然概念上不好理解，但是也不好计算啊（特别是24级的考试，这题太多了，计算器都来不及摁.jpg）**但是模电又比较重要，建议多花一些时间学，虽然这样不一定能让你拿到比较好的成绩，但对于之后的电路课还是有一些帮助的。**
 
-<center><img src="/assets/img/ec1.webp"  width="400"></center>
+<center><img src="/assets/img/notes/ec1.webp"  width="400"></center>
 
 ### 关于老师
 

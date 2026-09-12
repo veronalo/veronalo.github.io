@@ -72,6 +72,10 @@ buttons:
     <h2>近期更新</h2>
 
     <div class="home-updates__list">
+      <a class="home-update" href="/thoughts/zjg/">
+        <span><strong>一别紫金港</strong><small>Thoughts</small></span>
+        <span class="home-update__arrow">→</span>
+      </a>
       <a class="home-update" href="/notes/isee/ai/">
         <span><strong>人工智能</strong><small>ISEE · 学习笔记</small></span>
         <span class="home-update__arrow">→</span>
@@ -86,10 +90,6 @@ buttons:
       </a>
       <a class="home-update" href="/notes/isee/semiconductorfundamentals/">
         <span><strong>半导体物理</strong><small>ISEE · 学习笔记</small></span>
-        <span class="home-update__arrow">→</span>
-      </a>
-      <a class="home-update" href="/momento/2026-05-31-sunset/">
-        <span><strong>宝石山日落</strong><small>Momento · 2026.05.31</small></span>
         <span class="home-update__arrow">→</span>
       </a>
     </div>

@@ -17,6 +17,23 @@ tags:
   <section class="site-history__entry">
     <div class="site-history__marker" aria-hidden="true"></div>
     <header class="site-history__header">
+      <time datetime="2026-06-14">2026.07.12</time>
+      <h2>正式发布</h2>
+    </header>
+    <div class="site-history__description">
+      <p class="site-history__placeholder">中间隔了一个月复习期末考...最后终于在考完后小窝初次跟大家见面了！</p>
+      <p class="site-history__placeholder">只是一个新的起点，后面还会陆陆续续更新...</p>
+    </div>
+    <div class="site-history__gallery site-history__gallery--single site-history__gallery--portrait">
+      <a href="../../assets/img/history/publish.webp" data-history-image>
+        <img src="../../assets/img/history/publish.webp" alt="小窝发布">
+      </a>
+    </div>
+  </section>
+
+  <section class="site-history__entry">
+    <div class="site-history__marker" aria-hidden="true"></div>
+    <header class="site-history__header">
       <time datetime="2026-06-14">2026.06.14</time>
       <h2>v3.0 · 动态壁纸</h2>
     </header>

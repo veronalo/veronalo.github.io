@@ -21,8 +21,8 @@ tags:
 > “耳夹这么好看，归我了~”
 
 
-<img src="/assets/img/youcaihua1.webp"  width="800">
+<img src="/assets/img/momento/youcaihua1.webp"  width="800">
 
-<img src="/assets/img/youcaihua2.webp"  width="800">
+<img src="/assets/img/momento/youcaihua2.webp"  width="800">
 
 宝宝这么好看，归我了（抱走~~）
