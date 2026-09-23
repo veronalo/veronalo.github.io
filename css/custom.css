@@ -19,6 +19,31 @@
   color: #b1baca;              
 }
 
+.md-typeset .travel-quote__line {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.md-typeset .travel-quote__source {
+  --travel-cover-size: 4.6em;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.45rem;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.md-typeset .travel-quote__source img {
+  width: var(--travel-cover-size) !important;
+  height: var(--travel-cover-size) !important;
+  max-width: none;
+  margin: 0;
+  object-fit: cover;
+}
+
 .page-statistics {
   display: flex;
   flex-wrap: wrap;
